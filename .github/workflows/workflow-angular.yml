@@ -22,10 +22,14 @@ jobs:
               uses: actions/setup-node@v3
               with:
                 node-version: '18'
+            - name: Debug files del proyecto
+              run: |
+                echo "Archivos en el directorio de trabajo:"
+                ls -la
+                ls -la */ || true
 
             # Instalar dependencias
             - name: Instalar dependencias
-              working-directory: ./probando-angular
               run: npm install
 
             # Ejecutar pruebas
