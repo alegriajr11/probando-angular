@@ -37,3 +37,17 @@ jobs:
 
       - name: Finalizar trabajo
         run: echo "Trabajo de CI para la aplicación Angular completado exitosamente"
+
+      # Ejemplo de uso seguro de secrets (no mostrar valor real)
+      - name: Verificar SAMPLE_SECRET (no mostrar valor)
+        env:
+          SAMPLE_SECRET: ${{ secrets.SAMPLE_SECRET }}
+        run: |
+          # Si la variable está vacía, fallamos para demostrar uso seguro de secrets
+          if [ -z "$SAMPLE_SECRET" ]; then
+            echo "ERROR: SAMPLE_SECRET no está configurado"
+            exit 1
+          else
+            # Mostramos sólo que existe y su longitud, NUNCA su valor
+            echo "SAMPLE_SECRET presente (longitud=${#SAMPLE_SECRET})"
+          fi
