@@ -25,6 +25,7 @@ jobs:
 
             # Instalar dependencias
             - name: Instalar dependencias
+              working-directory: ./probando-angular
               run: npm install
 
             # Ejecutar pruebas
