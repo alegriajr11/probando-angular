@@ -71,7 +71,7 @@ jobs:
       - name: Deploy a Netlify
         run: |
           command -v netlify || npm install -g netlify-cli
-          netlify deploy --dir=dist/actions-web --prod --message="Deploy desde GitHub Actions"
+          netlify deploy --dir=dist/actions-web/browser --prod --message="Deploy desde GitHub Actions"
         env: 
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
