@@ -16,4 +16,4 @@ jobs:
             - name: Inicio de trabajo
               run: |
                 echo "Iniciando el trabajo de CI para la aplicación Angular"
-                echo "Evento: ${{ github.event_name }}"
+                echo "Evento: ${{ github.event_name }} | Rama: ${{ github.ref }} | Actor: ${{ github.actor }}"
