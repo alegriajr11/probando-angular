@@ -17,3 +17,21 @@ jobs:
               run: |
                 echo "Iniciando el trabajo de CI para la aplicación Angular"
                 echo "Evento: ${{ github.event_name }} | Rama: ${{ github.ref }} | Actor: ${{ github.actor }}"
+            # Instalar Node.js
+            - name: Configurar Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: '18'
+
+            # Instalar dependencias
+            - name: Instalar dependencias
+              run: npm ci
+
+            # Ejecutar pruebas
+            - name: Ejecutar pruebas
+              run: npm test -- --watch=false --browsers=ChromeHeadlessCI
+
+            # Mensaje Final
+            - name: Finalizar trabajo
+              run: echo "Trabajo de CI para la aplicación Angular completado exitosamente"
+
