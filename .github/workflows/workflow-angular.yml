@@ -26,6 +26,17 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+      
+      # Cache de dependencias para acelerar builds (opcional pero recomendado)
+      - name: Cache de dependencias
+        uses: actions/cache@v3
+        with:
+          # Guardamos la cache de npm (recomendado en CI)
+          path: ~/.npm
+          # Key basada en package-lock.json (si cambia el lockfile, se invalida)
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       # Instalar dependencias (usar npm ci requiere package-lock.json)
       - name: Instalar dependencias
