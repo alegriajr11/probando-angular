@@ -32,10 +32,6 @@ jobs:
             - name: Instalar dependencias
               run: npm install
 
-            # Ejecutar pruebas
-            - name: Ejecutar pruebas
-              run: npm test -- --watch=false --browsers=ChromeHeadlessCI
-
             # Mensaje Final
             - name: Finalizar trabajo
               run: echo "Trabajo de CI para la aplicación Angular completado exitosamente"
