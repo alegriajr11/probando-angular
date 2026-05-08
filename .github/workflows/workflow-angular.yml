@@ -62,3 +62,16 @@ jobs:
             # Mostramos sólo que existe y su longitud, NUNCA su valor
             echo "SAMPLE_SECRET presente (longitud=${#SAMPLE_SECRET})"
           fi
+
+      # Build angular
+      - name: Build Angular App
+        run: npm run build
+
+      # Desplegar a Netlify
+      - name: Deploy a Netlify
+        run: |
+          command -v netlify || npm install -g netlify-cli
+          netlify deploy --dir=dist/actions-web --prod --message="Deploy desde GitHub Actions"
+        env: 
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
