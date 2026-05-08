@@ -1,4 +1,3 @@
-
 name: CI Angular App
 
 on:
@@ -8,31 +7,33 @@ on:
     branches: [ main ]
 
 jobs:
-    tests:
-        name: Run tests
-        runs-on: ubuntu-latest
+  tests:
+    name: Run tests
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Inicio de trabajo
-              run: |
-                echo "Iniciando el trabajo de CI para la aplicación Angular"
-                echo "Evento: ${{ github.event_name }} | Rama: ${{ github.ref }} | Actor: ${{ github.actor }}"
-            # Instalar Node.js
-            - name: Configurar Node.js
-              uses: actions/setup-node@v3
-              with:
-                node-version: '18'
-            - name: Debug files del proyecto
-              run: |
-                echo "Archivos en el directorio de trabajo:"
-                ls -la
-                ls -la */ || true
+    steps:
+      - name: Inicio de trabajo
+        run: |
+          echo "Iniciando el trabajo de CI para la aplicación Angular"
+          echo "Evento: ${{ github.event_name }} | Rama: ${{ github.ref }} | Actor: ${{ github.actor }}"
 
-            # Instalar dependencias
-            - name: Instalar dependencias
-              run: npm install
+      # IMPORTANTE: traer el código al runner antes de cualquier comando
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-            # Mensaje Final
-            - name: Finalizar trabajo
-              run: echo "Trabajo de CI para la aplicación Angular completado exitosamente"
+      # Instalar Node.js en el runner
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
+      # Instalar dependencias (usar npm ci requiere package-lock.json)
+      - name: Instalar dependencias
+        run: npm ci
+
+      # Ejecutar tests (ajusta si tu proyecto no tiene tests o usa otro comando)
+      - name: Ejecutar pruebas
+        run: npm test -- --watch=false --browsers=ChromeHeadless
+
+      - name: Finalizar trabajo
+        run: echo "Trabajo de CI para la aplicación Angular completado exitosamente"
